@@ -81,7 +81,10 @@ To test different themes we can run
 ```sh
 bash ~/.config/polybar/launch.sh
 ```
-
+We'l also install a dependencie to polybar
+```sh
+sudo apt install rofi
+```
 ## Setting up your terminal app
 
 ### Instaling alacritty
@@ -117,6 +120,17 @@ At last we'l configre alacritty to use this font with the config
 font:
     normal:
           family: MesloLGS Nerd Font
+```
+
+### Installing picom
+To allow our windows to be transparent we need to install picom
+```sh
+sudo apt install picom
+```
+Then we can go ahead and configure alacritty to became semitransparent
+```yml
+window:
+    opacity: 0.95
 ```
 
 ### Installing powerlevel10k

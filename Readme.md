@@ -56,7 +56,12 @@ To achieve this we can use the command `feh --bg-scale /path/to/image.file`
 After we make sure that the command works as intended we can save it to the i3 config file so that it runs at startup
 
 ### Configuring i3-gaps
-Now we'l change the default configuration of i3 to something more palatable by creating gaps between windows and removing 2000s blue outline
+Now we'l change the default configuration of i3 to something more palatable by creating gaps between windows and removing 2000s blue outline by adding the following lines to i3's configuration
+```
+gaps inner 10
+gaps outer 10
+default_border none
+```
 
 # The pursuit for a Unix Porn environment continues!
 

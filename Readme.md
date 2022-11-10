@@ -90,7 +90,33 @@ To install alacritty again there is not prebuilt version for ubuntu so we'l inst
 sudo apt install cargo -y
 echo 'export PATH=$PATH:$HOME/.cargo/bin' >> ~/.bashrc
 source ~/.bashrc
-cargo install alacritty
+cargo install alacritty 
+```
+Then we can edit i3 config to use alacritty as its default terminal
+```
+bindsym $mod+Return exec /home/osboxes/.cargo/bin/alacritty
+```
+
+### Installing a nerd font 
+To instal the Meslo font we'l use the following script 
+```sh
+sudo apt install fontconfig
+cd ~
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
+mkdir -p .local/share/fonts
+unzip Meslo.zip -d .local/share/fonts
+cd .local/share/fonts
+rm *Windows*
+cd ~
+rm Meslo.zip
+fc-cache -fv
+``` 
+
+At last we'l configre alacritty to use this font with the config
+```yml
+font:
+    normal:
+          family: MesloLGS Nerd Font
 ```
 
 ### Installing powerlevel10k
@@ -117,4 +143,6 @@ p10k configure
 ```
 
 # Playing super tux and experiencing responsiveness
-
+```sh
+sudo apt install supertux
+```

@@ -8,11 +8,22 @@ A window manager on the other hands is not battery included, they allow for load
 # How to use i3
 
 ## Installing i3-gaps
-To install i3-gaps we need just to add in the apt repository and then install it 
+To install i3-gaps we need to compile it from source since there is no apt package available with it
 ```sh
-sudo add-apt-repository -y ppa:regolith-linux/stable
-sudo apt install i3-gaps
+apt install dh-autoreconf libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev libxcb-shape0 libxcb-shape0-dev
+
+# clone the repository
+git clone https://www.github.com/Airblader/i3 i3-gaps
+cd i3-gaps
+
+mkdir -p build && cd build
+meson ..
+ninja
+sudo ninja install
 ```
+
+## Installing dmenu
+```sudo apt install dmenu```
 
 ## The \[mod\] key
 The mod key is a key of your choice (usually the windows key) that you give up in order to control the i3. It is used on all the following features
@@ -28,15 +39,13 @@ Alternatively, and according to some sacrilegiously, you can also hold `[mod]` a
 Moving windows can be made with the command `[mod] + shift + [arrow keys]` while focused on the window you want to move
 
 ## Creating floating windows
-Creating a floating window can be made with `[mod] + space` and you can return it to a normal window with the same command
+Creating a floating window can be made with `[mod] + shift + space` and you can return it to a normal window with the same command
 
 ## Multiple workspaces
 On i3 there is the concept of multiple workspaces to organize your workflow, by default you can access them using the command `[mod] + [number 1 through 9]`
 
 ## Changing window direction
-Changing the windows spawn direction can be made with the command `[mod] + v` this will toggle the current window context's direction from horizontal to vertical and vice versa
-
-## Fixed window names for multiple monitors
+Changing the windows spawn direction can be made with the command `[mod] + e` this will toggle the current window context's direction from horizontal to vertical and vice versa
 
 ## How to achieve a Unix Porn visual
 I'm sure you've seen time and time again the unix porn subreddit full of gorgeous environments. To achieve this you need nothing more than a couple of configuration lines on your i3 config file!
@@ -59,40 +68,21 @@ You can install polybar directly from apt
 sudo apt install polybar
 ```
 
-### Installing an applet for network manager
-To install network manager applet you can run the command `sudo apt install network-manager-gnome` 
-
-### Installing an applet to manage sound
-Unfotunatly to install the sound control extension to polybar there is no package for apt and we'l need to install it from source   
-An updated version of the instruction can be found on their [Github](https://github.com/marioortizmanero/polybar-pulseaudio-control)
+### Configuring polybar
+To configure polyar we'l be using a theme framework to make it easier to start messing around
+To install it we can run the following commands
 ```sh
-curl https://github.com/marioortizmanero/polybar-pulseaudio-control/blob/master/pulseaudio-control.bash > pulseaudio-control
-chmod +x pulseaudio-control
-sudo mv pulseaudio-control /bin
-``` 
-To add it to the polybar configuration we can simply edit the file adding the following lines
+git clone --depth=1 https://github.com/adi1090x/polybar-themes.git
+cd polybar-themes
+chmod +x setup.sh
+./setup.sh
 ```
-[module/pulseaudio-control]
-type = custom/script
-exec = pulseaudio-control [option...] <action>
+To test different themes we can run
+```sh
+bash ~/.config/polybar/launch.sh
 ```
 
 ## Setting up your terminal app
-
-### Installing a Nerd Font
-To instal the Meslo font we'l use the following script 
-```sh
-sudo apt install fontconfig
-cd ~
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
-mkdir -p .local/share/fonts
-unzip Meslo.zip -d .local/share/fonts
-cd .local/share/fonts
-rm *Windows*
-cd ~
-rm Meslo.zip
-fc-cache -fv
-``` 
 
 ### Instaling alacritty
 To install alacritty again there is not prebuilt version for ubuntu so we'l install it via cargo
